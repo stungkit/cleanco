@@ -1,6 +1,23 @@
 # encoding: utf-8
+import pytest
+from cleanco import prepare_terms, basename
 
-from cleanco import cleanco
+
+@pytest.fixture
+def terms():
+   return prepare_terms()
+
+
+def test_deterministic_terms(monkeypatch):
+   """prepare_terms should always return the same list (even for different ordering in get_unique_terms)"""
+   from cleanco import clean
+   with monkeypatch.context() as m:
+      mock_terms = ["aaa", "bbb", "ccc"]
+      m.setattr(clean, "get_unique_terms", lambda: mock_terms)
+      res1 = clean.prepare_terms()
+      m.setattr(clean, "get_unique_terms", lambda: reversed(mock_terms))
+      res2 = clean.prepare_terms()
+      assert res1 == res2
 
 
 # Tests that demonstrate stuff is stripped away
@@ -14,53 +31,84 @@ basic_cleanup_tests = {
    "name w/ ws suffix dot ws": " Hello World ltd. ",
 }
 
-def test_basic_cleanups():
+def test_basic_cleanups(terms):
    expected = "Hello World"
    errmsg = "cleanup of %s failed"
    for testname, variation in basic_cleanup_tests.items():
-      assert cleanco(variation).clean_name() == expected, errmsg % testname
+      assert basename(variation, terms) == expected, errmsg % testname
 
 multi_cleanup_tests = {
    "name + suffix":          "Hello World Oy",
-   "name + two suffix":      "Hello World Ab Oy",
+   "name + suffix (without punct)":          "Hello World sro",
    "prefix + name":          "Oy Hello World",
    "prefix + name + suffix": "Oy Hello World Ab",
    "name w/ term in middle": "Hello Oy World",
+   "name w/ complex term in middle": "Hello pty ltd World",
    "name w/ mid + suffix":   "Hello Oy World Ab"
 }
 
-def test_multi_type_cleanups():
+def test_multi_type_cleanups(terms):
    expected = "Hello World"
    errmsg = "cleanup of %s failed"
    for testname, variation in multi_cleanup_tests.items():
-      result = cleanco(variation).clean_name(prefix=True, suffix=True, middle=True, multi=True)
+      result = basename(variation, terms, prefix=True, suffix=True, middle=True)
       assert result == expected, errmsg % testname
 
+
+# Tests that demonstrate basename can be run twice effectively
+
+double_cleanup_tests = {
+   "name + two prefix":      "Ab Oy Hello World",
+   "name + two suffix":      "Hello World Ab Oy",
+   "name + two in middle":   "Hello Ab Oy World"
+}
+
+def test_double_cleanups(terms):
+   expected = "Hello World"
+   errmsg = "cleanup of %s failed"
+   for testname, variation in multi_cleanup_tests.items():
+      result = basename(variation, terms, prefix=True, suffix=True, middle=True)
+      final = basename(result, terms, prefix=True, suffix=True, middle=True)
+
+      assert final == expected, errmsg % testname
 
 # Tests that demonstrate organization name is kept intact
 
 preserving_cleanup_tests = {
-   "name with comma": (u"Hello, World, ltd.", u"Hello, World"),
-   "name with dot": (u"Hello. World, Oy", u"Hello. World")
+   "name with comma": ("Hello, World, ltd.", "Hello, World"),
+   "name with dot": ("Hello. World, Oy", "Hello. World")
 }
 
-def test_preserving_cleanups():
+def test_preserving_cleanups(terms):
    errmsg = "preserving cleanup of %s failed"
    for testname, (variation, expected) in preserving_cleanup_tests.items():
-      assert cleanco(variation).clean_name() == expected, errmsg % testname
+      assert basename(variation, terms) == expected, errmsg % testname
 
 # Test umlauts
 
 
 unicode_umlaut_tests = {
-   "name with umlaut in end": (u"Säätämö Oy", u"Säätämö"),
-   "name with umlauts & comma": (u"Säätämö, Oy", u"Säätämö"),
-   "name with no ending umlaut": (u"Säätämo Oy", u"Säätämo"),
-   "name with beginning umlaut": (u"Äätämo Oy", u"Äätämo"),
-   "name with just umlauts": (u"Äätämö", u"Äätämö")
+   "name with umlaut in end": ("Säätämö Oy", "Säätämö"),
+   "name with umlauts & comma": ("Säätämö, Oy", "Säätämö"),
+   "name with no ending umlaut": ("Säätämo Oy", "Säätämo"),
+   "name with beginning umlaut": ("Äätämo Oy", "Äätämo"),
+   "name with just umlauts": ("Äätämö", "Äätämö"),
+   "cyrillic name": ("ОАО Новороссийский морской торговый порт", "Новороссийский морской торговый порт")
+
 }
 
-def test_with_unicode_umlauted_name():
+def test_with_unicode_umlauted_name(terms):
    errmsg = "preserving cleanup of %s failed"
    for testname, (variation, expected) in unicode_umlaut_tests.items():
-      assert cleanco(variation).clean_name() == expected, errmsg % testname
+      assert basename(variation, terms, prefix=True) == expected, errmsg % testname
+
+
+terms_with_accents_tests = {
+   "term with ł correct spelling": ("Łoś spółka z o.o", "Łoś"),
+   "term with ł incorrect spelling": ("Łoś spolka z o.o", "Łoś"),
+}
+
+def test_terms_with_accents(terms):
+   errmsg = "preserving cleanup of %s failed"
+   for testname, (variation, expected) in terms_with_accents_tests.items():
+      assert basename(variation, terms, suffix=True) == expected, errmsg % testname

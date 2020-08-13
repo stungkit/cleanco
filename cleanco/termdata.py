@@ -1,6 +1,6 @@
 terms_by_type = {
    'Corporation': ['company', 'incorporated', 'corporation', 'corp.', 'corp', 'inc',
-      '& co.', '& co', 'inc.', 's.p.a.', 'n.v.', 'a.g.', 'ag', 'aktiengesellschaft', 'nuf', 's.a.', 's.f.',
+      '& co.', '& co', 'inc.', 's.p.a.', 'n.v.', 'a.g.', 'ag', 'nuf', 's.a.', 's.f.',
       'oao', 'co.', 'co'
    ],
    'General Partnership': ['soc.col.', 'stg', 'd.n.o.', 'ltda.', 'v.o.s.', 'a spol.',
@@ -14,12 +14,14 @@ terms_by_type = {
    'Joint Venture': ['esv', 'gie', 'kv.', 'qk'],
    'Limited': ['pty. ltd.', 'pty ltd', 'ltd', 'l.t.d.', 'bvba', 'd.o.o.', 'ltda', 'gmbh',
       'g.m.b.h', 'kft.', 'kht.', 'zrt.', 'ehf.', 's.a.r.l.', 'd.o.o.e.l.', 's. de r.l.',
-      'b.v.', 'tapui', 'sp. z.o.o.', 's.r.l.', 's.l.', 's.l.n.e.', 'ood', 'oy', 'rt.',
+      'b.v.', 'tapui',
+      'sp. z.o.o.', 'sp. z o.o.', 'spółka z o.o.',
+      's.r.l.', 's.l.', 's.l.n.e.', 'ood', 'oy', 'rt.',
       'teo', 'uab', 'scs', 'sprl', 'limited', 'bhd.', 'sdn. bhd.', 'sdn bhd', 'as',
       'lda.', 'tov', 'pp'
    ],
    'Limited Liability Company': ['pllc', 'llc', 'l.l.c.', 'plc.', 'plc', 'hf.', 'oyj',
-      'a.e.', 'nyrt.', 'p.l.c.', 'sh.a.', 's.a.', 's.r.l.', 'srl.', 'aat', '3at', 'd.d.',
+      'a.e.', 'nyrt.', 'p.l.c.', 'sh.a.', 's.a.', 's.r.l.', 'srl.', 'srl', 'aat', '3at', 'd.d.',
       's.r.o.', 'spol. s r.o.', 's.m.b.a.', 'smba', 'sarl', 'nv', 'sa', 'aps',
       'a/s', 'p/s', 'sae', 'sasu', 'eurl', 'ae', 'cpt', 'as', 'ab', 'asa', 'ooo', 'dat',
       'vat', 'zat', 'mchj', 'a.d.'
@@ -48,9 +50,9 @@ terms_by_country = {
       'soc.col.'
    ],
    'Australia': ['nl', 'pty. ltd.', 'pty ltd'],
-   'Austria': ['e.u.', 'stg', 'gesbr', 'a.g.', 'ag', 'og', 'kg', 'aktiengesellschaft'],
+   'Austria': ['e.u.', 'stg', 'gesbr', 'a.g.', 'ag', 'og', 'kg'],
    'Belarus': ['aat', '3at'],
-   'Belgium': ['esv', 'vzw', 'vof', 'snc', 'comm.v', 'scs', 'bvba', 'sprl', 'cbva',
+   'Belgium': ['esv', 'vzw', 'vof', 'snc', 'comm.v', 'scs', 'bvba', 'sprl', 'cvba',
       'cvoa', 'sca', 'sep', 'gie'
    ],
    'Bosnia / Herzegovina': ['d.d.', 'a.d.', 'd.n.o.', 'd.o.o.', 'k.v.', 's.p.'],
@@ -67,7 +69,7 @@ terms_by_country = {
    'Denmark': ['i/s', 'a/s', 'k/s', 'p/s', 'amba', 'a.m.b.a.', 'fmba', 'f.m.b.a.', 'smba',
       's.m.b.a.', 'g/s'
    ],
-   'Dominican Republic': ['c. por a.', 'cxa', 's.a.', 's.a.s.', 'srl.', 'eirl.', 'sa',
+   'Dominican Republic': ['c. por a.', 'cxa', 's.a.', 's.a.s.', 'srl.', 'srl', 'eirl.', 'sa',
       'sas'
    ],
    'Ecuador': ['s.a.', 'c.a.', 'sa', 'ep'],
@@ -78,7 +80,7 @@ terms_by_country = {
       'scs', 'sca', 'scop', 'sem', 'sas'
    ],
    'Germany': ['gmbh & co. kg', 'gmbh & co. kg', 'e.g.', 'e.v.', 'gbr', 'ohg', 'partg',
-      'kgaa', 'gmbh', 'g.m.b.h.', 'ag', 'aktiengesellschaft'
+      'kgaa', 'gmbh', 'g.m.b.h.', 'ag'
    ],
    'Greece': ['a.e.', 'ae', 'e.e.', 'ee', 'epe', 'e.p.e.', 'mepe', 'm.e.p.e.', 'o.e.',
       'oe', 'ovee', 'o.v.e.e.'
@@ -118,7 +120,7 @@ terms_by_country = {
    'Poland': ['p.p.', 's.k.a.', 'sp.j.', 'sp.k.', 'sp.p.', 'sp. z.o.o.', 's.c.', 's.a.'],
    'Portugal': ['lda.', 'crl', 's.a.', 's.f.', 'sgps'],
    'Romania': ['s.c.a.', 's.c.s.', 's.n.c.', 's.r.l.', 'o.n.g.', 's.a.'],
-   'Russia': ['ooo', 'oao', 'zao', '3ao'],
+   'Russia': ['ooo', 'oao', 'zao', '3ao', 'пао', 'оао', 'ооо'],
    'Serbia': ['d.o.o.', 'a.d.', 'k.d.', 'o.d.'],
    'Singapore': ['bhd', 'pte ltd', 'sdn bhd', 'llp', 'l.l.p.', 'ltd.', 'pte'],
    'Slovenia': ['d.d.', 'd.o.o.', 'd.n.o.', 'k.d.', 's.p.'],

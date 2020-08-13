@@ -4,22 +4,26 @@ import setuptools
 
 from setuptools import setup
 
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(name='cleanco',
       description='Python library to process company names',
-      version='1.361',
+      long_description=long_description,
+      long_description_content_type='text/markdown',
+      version='2.0.1',
       license="MIT",
       classifiers = [
          "Topic :: Office/Business",
          "Development Status :: 4 - Beta",
          "Intended Audience :: Developers",
          "License :: OSI Approved :: MIT License",
-         "Programming Language :: Python :: 2.7",
-         "Programming Language :: Python :: 3.5"
+         "Programming Language :: Python :: 3"
       ],
       url='https://github.com/psolin/cleanco',
       author='Paul Solin',
       author_email='paul@paulsolin.com',
-      py_modules=['cleanco', 'termdata'],
+      packages=["cleanco"],
       setup_requires=['pytest-runner'],
       tests_require=['pytest', 'tox'],
-      )
+)
