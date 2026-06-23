@@ -375,7 +375,7 @@ terms_by_country = {
         "vof",
         "vzw",
     ],
-    "Bosnia / Herzegovina": [
+    "Bosnia and Herzegovina": [
         "a.d.",
         "d.d.",
         "d.n.o.",
@@ -503,7 +503,7 @@ terms_by_country = {
         "d.o.o.",
         "obrt",
     ],
-    "Czech Republic": [
+    "Czechia": [
         "a spol.",
         "a.s.",
         "akc. spol.",
@@ -730,7 +730,7 @@ terms_by_country = {
         "s.a.r.l.",
         "secs",
     ],
-    "Macedonia": [
+    "North Macedonia": [
         "a.d.",
         "d.o.o.",
         "d.o.o.e.l",
@@ -1055,7 +1055,7 @@ terms_by_country = {
         "sagl",
         "sarl",
     ],
-    "Turkey": [
+    "Türkiye": [
         "koop.",
     ],
     "Ukraine": [
